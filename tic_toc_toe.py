@@ -1,9 +1,9 @@
 
 # global variable list to make the tic toc toe board
 board = [
-    ["x", "x", "d"],
-    ["o", "x", "x"],
-    ["d", "o", "x"]
+    ["1", "2", "o"],
+    ["4", "o", "6"],
+    ["o", "8", "9"]
 ]
 
 # function to display board nicely in console 
@@ -64,12 +64,22 @@ def check_winner():
             if all(cells == player for cells in rows):
                 return f"Player {player} wins!!"
 
+    diagnole = []
+    diagnole2 = []
     for rows in range(len(board)):
-        for player in ("x", "o"):
-            if board[rows][rows] == player:
-                print(f"Player {player} wins!!")
+        diagnole.append(board[rows][rows])
+        diagnole2.append(board[rows][-(rows + 1)])
 
-        #print(rows)
+    for player in ("x", "o"):
+        if all(cell == player for cell in diagnole):
+            print(f"Player {player} wins!!")
+        elif all(cell == player for cell in diagnole2):
+            print(f"Player {player} wins!!")
+
+
+
+
+
 
 # current_board(board)
 check_winner()
