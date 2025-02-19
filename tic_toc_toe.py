@@ -53,28 +53,30 @@ def transpose_board():
 #check if there is a winner 
 def check_winner():
     # checking each row if all are x or o to determine winner 
-    for row in board:
+    try:
+        for row in board:
+            for player in ("x", "o"):
+                if all(cells == player for cells in row):
+                    return f"Player {player} wins!!"
+
+        # checking columns by first transposing board with the transpose_board function and making the code more condensed
+        for rows in transpose_board():
+            for player in ("x", "o"):
+                if all(cells == player for cells in rows):
+                    return f"Player {player} wins!!"
+
+        diagnole = []
+        diagnole2 = []
+        for rows in range(len(board)):
+            diagnole.append(board[rows][rows])
+            diagnole2.append(board[rows][-(rows + 1)])
+
         for player in ("x", "o"):
-            if all(cells == player for cells in row):
-                return f"Player {player} wins!!"
-
-    # checking columns by first transposing board with the transpose_board function and making the code more condensed
-    for rows in transpose_board():
-        for player in ("x", "o"):
-            if all(cells == player for cells in rows):
-                return f"Player {player} wins!!"
-
-    diagnole = []
-    diagnole2 = []
-    for rows in range(len(board)):
-        diagnole.append(board[rows][rows])
-        diagnole2.append(board[rows][-(rows + 1)])
-
-    for player in ("x", "o"):
-        if all(cell == player for cell in diagnole):
-            print(f"Player {player} wins!!")
-        elif all(cell == player for cell in diagnole2):
-            print(f"Player {player} wins!!")
+            if all(cell == player for cell in diagnole):
+                print(f"Player {player} wins!!")
+            elif all(cell == player for cell in diagnole2):
+                print(f"Player {player} wins!!")
+    
 
 
 
