@@ -76,7 +76,8 @@ def check_winner():
                 print(f"Player {player} wins!!")
             elif all(cell == player for cell in diagnole2):
                 print(f"Player {player} wins!!")
-    
+    except Exception as e:
+        print(f"There was a problem checking results {e}")
 
 
 
@@ -84,9 +85,9 @@ def check_winner():
 
 
 # current_board(board)
-check_winner()
+# check_winner()
 # player_x_turn()
 
 # player_o_turn()
-# current_board(board)
+current_board(board)
 # current_board(board)
