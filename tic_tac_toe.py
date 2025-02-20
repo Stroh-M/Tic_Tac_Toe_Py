@@ -54,11 +54,6 @@ def player_turn(player):
         print("Only enter numbers from 1 -9 (including 9)")
         player_turn(player)
 
-# transposing board to make the columns rows to be able to check for winner in the columns
-def transpose_board():
-    return [[board[j][i] for j in range(len(board))] for i in range(len(board[0]))]
-
-
 #check if there is a winner 
 def check_winner():
     # checking each row if all are x or o to determine winner 
@@ -68,8 +63,8 @@ def check_winner():
                 if all(cells == player for cells in row):
                     return f"Player {player} wins!!", True
 
-        # checking columns by first transposing board with the transpose_board function and making the code more condensed
-        for rows in transpose_board():
+        # checking columns by first transposing board and making the code more condensed
+        for rows in [[board[j][i] for j in range(len(board))] for i in range(len(board[0]))]:
             for player in ("x", "o"):
                 if all(cells == player for cells in rows):
                     return f"Player {player} wins!!", True
