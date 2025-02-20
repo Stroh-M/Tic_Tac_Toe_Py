@@ -37,7 +37,7 @@ No installation required. Just clone or download the repository, and run the Pyt
 3. To make a move, enter the number corresponding to the position on the board (1 to 9):
    ```
    1 | 2 | 3
-   ---|---|---
+  ---|---|---
    4 | 5 | 6
    ---|---|---
    7 | 8 | 9
