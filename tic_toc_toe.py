@@ -22,62 +22,34 @@ def player_input():
     return int(position)
 
 # letting player x go and update the board lists to where the player went 
-def player_x_turn():
+def player_turn(player):
     
     #receiving position that the user selected 
-    print("X's turn:")
+    # print("X's turn:")
     position = player_input()
     if position in (1, 2, 3, 4, 5, 6, 7, 8, 9):
     # based off the position update list 
         if position in [1, 2, 3]:
             if board[0][position -1] == " ":
-                board[0][position - 1] = "x"
+                board[0][position - 1] = player
             else:
                 print("Square taken. Try again")
-                player_x_turn()
+                player_turn(player)
         elif position in [4, 5, 6]:
             if board[1][position -4] == " ":
-                board[1][position - 4] = "x"
+                board[1][position - 4] = player
             else:
                 print("Square taken. Try again")
-                player_x_turn()
+                player_turn(player)
         elif position in [7, 8, 9]:
             if board[2][position - 7] == " ":
-                board[2][position - 7] = "x"
+                board[2][position - 7] = player
             else:
                 print("Square taken. Try again")
-                player_x_turn()
+                player_turn(player)
     else:
         print("Only enter numbers from 1 -9 (including 9)")
-        player_x_turn()
-
-# same as function player_x_turn
-def player_o_turn():
-    print("O's turn:")
-    position = player_input()
-    
-    if position in (1, 2, 3, 4, 5, 6, 7, 8, 9):
-        if position in [1, 2, 3]:
-            if board[0][position - 1] == " ":
-                board[0][position - 1] = "o"
-            else:
-                print("Square taken. Try again")
-                player_o_turn()
-        elif position in [4, 5, 6]:
-            if board[1][position - 4] == " ":
-                board[1][position - 4] = "o"
-            else:
-                print("Square taken. Try again")
-                player_o_turn()
-        elif position in [7, 8, 9]:
-            if board[2][position - 7] == " ":
-                board[2][position - 7] = "o"
-            else:
-                print("Square taken. Try again")
-                player_o_turn()
-    else:
-        print("Only enter numbers from 1 -9 (including 9)")
-        player_o_turn()
+        player_turn(player)
 
 # transposing board to make the columns rows to be able to check for winner in the columns
 def transpose_board():
@@ -123,13 +95,15 @@ winner = False
 
 def play_game():
     try:
-        player_x_turn()
+        print("X's turn:")
+        player_turn("x")
         current_board(board)
         result = check_winner()
         if result != None:
             return result
         
-        player_o_turn()
+        print("O's turn:")
+        player_turn("o")
         current_board(board)
         result = check_winner()
         if result != None:
