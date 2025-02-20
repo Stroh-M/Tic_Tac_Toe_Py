@@ -1,9 +1,9 @@
 
 # global variable list to make the tic toc toe board
 board = [
-    ["1", "2", "o"],
-    ["4", "o", "6"],
-    ["o", "8", "9"]
+    [" ", " ", " "],
+    [" ", " ", " "],
+    [" ", " ", " "]
 ]
 
 # function to display board nicely in console 
@@ -25,25 +25,59 @@ def player_input():
 def player_x_turn():
     
     #receiving position that the user selected 
+    print("X's turn:")
     position = player_input()
-
+    if position in (1, 2, 3, 4, 5, 6, 7, 8, 9):
     # based off the position update list 
-    if position in [1, 2, 3]:
-        board[0][position - 1] = "x"
-    elif position in [4, 5, 6]:
-        board[1][position - 4] = "x"
-    elif position in [7, 8, 9]:
-        board[2][position - 7] = "x"
+        if position in [1, 2, 3]:
+            if board[0][position -1] == " ":
+                board[0][position - 1] = "x"
+            else:
+                print("Square taken. Try again")
+                player_x_turn()
+        elif position in [4, 5, 6]:
+            if board[1][position -4] == " ":
+                board[1][position - 4] = "x"
+            else:
+                print("Square taken. Try again")
+                player_x_turn()
+        elif position in [7, 8, 9]:
+            if board[2][position - 7] == " ":
+                board[2][position - 7] = "x"
+            else:
+                print("Square taken. Try again")
+                player_x_turn()
+    else:
+        print("Only enter numbers from 1 -9 (including 9)")
+        player_x_turn()
 
 # same as function player_x_turn
 def player_o_turn():
+    print("O's turn:")
     position = player_input()
-    if position in [1, 2, 3]:
-        board[0][position - 1] = "o"
-    elif position in [4, 5, 6]:
-        board[1][position - 4] = "o"
-    elif position in [7, 8, 9]:
-        board[2][position - 7] = "o"
+    
+    if position in (1, 2, 3, 4, 5, 6, 7, 8, 9):
+        if position in [1, 2, 3]:
+            if board[0][position - 1] == " ":
+                board[0][position - 1] = "o"
+            else:
+                print("Square taken. Try again")
+                player_o_turn()
+        elif position in [4, 5, 6]:
+            if board[1][position - 4] == " ":
+                board[1][position - 4] = "o"
+            else:
+                print("Square taken. Try again")
+                player_o_turn()
+        elif position in [7, 8, 9]:
+            if board[2][position - 7] == " ":
+                board[2][position - 7] = "o"
+            else:
+                print("Square taken. Try again")
+                player_o_turn()
+    else:
+        print("Only enter numbers from 1 -9 (including 9)")
+        player_o_turn()
 
 # transposing board to make the columns rows to be able to check for winner in the columns
 def transpose_board():
@@ -57,13 +91,13 @@ def check_winner():
         for row in board:
             for player in ("x", "o"):
                 if all(cells == player for cells in row):
-                    return f"Player {player} wins!!"
+                    return f"Player {player} wins!!", True
 
         # checking columns by first transposing board with the transpose_board function and making the code more condensed
         for rows in transpose_board():
             for player in ("x", "o"):
                 if all(cells == player for cells in rows):
-                    return f"Player {player} wins!!"
+                    return f"Player {player} wins!!", True
 
         diagnole = []
         diagnole2 = []
@@ -73,21 +107,42 @@ def check_winner():
 
         for player in ("x", "o"):
             if all(cell == player for cell in diagnole):
-                print(f"Player {player} wins!!")
+                return f"Player {player} wins!!", True
             elif all(cell == player for cell in diagnole2):
-                print(f"Player {player} wins!!")
+                return f"Player {player} wins!!", True
+
+        allBoardElements = [cell for row in board for cell in row]
+
+        # check if it's a tie 
+        if all(cell != " " for cell in allBoardElements):
+            return "It's a tie", True
     except Exception as e:
         print(f"There was a problem checking results {e}")
 
+winner = False
+
+def play_game():
+    try:
+        player_x_turn()
+        current_board(board)
+        result = check_winner()
+        if result != None:
+            return result
+        
+        player_o_turn()
+        current_board(board)
+        result = check_winner()
+        if result != None:
+            return result
+        
+        return ()
+    except Exception as e:
+        print(f"There was an error in play_game() {e}")
 
 
-
-
-
-# current_board(board)
-# check_winner()
-# player_x_turn()
-
-# player_o_turn()
 current_board(board)
-# current_board(board)
+while winner == False:
+    result = play_game()
+    if True in result:
+        print(result[0])
+        winner = True
