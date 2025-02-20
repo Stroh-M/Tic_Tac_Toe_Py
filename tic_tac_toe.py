@@ -6,6 +6,9 @@ board = [
     [" ", " ", " "]
 ]
 
+# set winner to false so while loop should work till winner is True
+winner = False
+
 # function to display board nicely in console 
 def current_board(board):
     print(f" {board[0][0]} | {board[0][1]} | {board[0][2]} ")
@@ -71,6 +74,7 @@ def check_winner():
                 if all(cells == player for cells in rows):
                     return f"Player {player} wins!!", True
 
+        # check if diagnole lines match all x's or all o's
         diagnole = []
         diagnole2 = []
         for rows in range(len(board)):
@@ -83,15 +87,12 @@ def check_winner():
             elif all(cell == player for cell in diagnole2):
                 return f"Player {player} wins!!", True
 
-        allBoardElements = [cell for row in board for cell in row]
-
         # check if it's a tie 
+        allBoardElements = [cell for row in board for cell in row]
         if all(cell != " " for cell in allBoardElements):
             return "It's a tie", True
     except Exception as e:
         print(f"There was a problem checking results {e}")
-
-winner = False
 
 def play_game():
     try:
@@ -113,12 +114,9 @@ def play_game():
     except Exception as e:
         print(f"There was an error in play_game() {e}")
 
-
 current_board(board)
 while winner == False:
     result = play_game()
     if True in result:
         print(result[0])
         winner = True
-
-'hey'
